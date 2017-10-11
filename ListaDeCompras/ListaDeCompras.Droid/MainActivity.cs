@@ -8,6 +8,8 @@ using Android.Widget;
 using Android.OS;
 using Prism.Unity;
 using Microsoft.Practices.Unity;
+using ListaDeCompras.Droid.Services;
+using ListaDeCompras.Services;
 
 namespace ListaDeCompras.Droid
 {
@@ -28,9 +30,11 @@ namespace ListaDeCompras.Droid
 
     public class AndroidInitializer : IPlatformInitializer
     {
+        static AutenticacaoService autenticacaoService = new AutenticacaoService();
+
         public void RegisterTypes(IUnityContainer container)
         {
-
+            container.RegisterInstance<IAutenticacaoService>(autenticacaoService, new ExternallyControlledLifetimeManager());
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using Prism.Unity;
 using ListaDeCompras.Views;
 using Xamarin.Forms;
+using System;
 
 namespace ListaDeCompras
 {
@@ -12,13 +13,16 @@ namespace ListaDeCompras
         {
             InitializeComponent();
 
-            NavigationService.NavigateAsync("NavigationPage/MainPage?title=Hello%20from%20Xamarin.Forms");
+            NavigationService.NavigateAsync(new Uri("/LoginPage", UriKind.Absolute));
         }
 
         protected override void RegisterTypes()
         {
             Container.RegisterTypeForNavigation<NavigationPage>();
-            Container.RegisterTypeForNavigation<MainPage>();
+            Container.RegisterTypeForNavigation<LoginPage>();
+            Container.RegisterTypeForNavigation<ListaDeComprasPage>();
+            Container.RegisterTypeForNavigation<ListaDeComprasTabs>();
+            Container.RegisterTypeForNavigation<NovoItemPage>();
         }
     }
 }

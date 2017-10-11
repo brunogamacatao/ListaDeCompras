@@ -2,9 +2,9 @@
 
 namespace ListaDeCompras.Views
 {
-    public partial class MainPage : ContentPage
+    public partial class ListaDeComprasPage : ContentPage
     {
-        public MainPage()
+        public ListaDeComprasPage()
         {
             InitializeComponent();
         }
