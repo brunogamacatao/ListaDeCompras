@@ -9,6 +9,9 @@ namespace ListaDeCompras.Services
     public interface IAutenticacaoService
     {
         Task<bool> Autentica(string email, string senha);
+        Task<bool> Registrar(string email, string senha);
+
         string Token { get; }
+        string UserName { get; }
     }
 }

@@ -30,7 +30,7 @@ namespace ListaDeCompras.Droid.Services
         public async Task<List<Item>> Listar()
         {
             var itens = new List<Item>();
-            var retorno = await Firebase.Child("itens").OnceAsync<Item>();
+            var retorno = await Firebase.Child($"itens/{_autenticacaoService.UserName}").OnceAsync<Item>();
 
             foreach (var item in retorno)
             {
@@ -43,21 +43,21 @@ namespace ListaDeCompras.Droid.Services
 
         public async Task<Item> Cadastrar(Item novoItem)
         {
-            var registro = await Firebase.Child("itens").PostAsync<Item>(novoItem);
+            var registro = await Firebase.Child($"itens/{_autenticacaoService.UserName}").PostAsync<Item>(novoItem);
             novoItem.ItemId = registro.Key;
             return novoItem;
         }
 
         public async Task<Item> Alterar(Item item)
         {
-            await Firebase.Child($"itens/{item.ItemId}").PutAsync<Item>(item);
+            await Firebase.Child($"itens/{_autenticacaoService.UserName}/{item.ItemId}").PutAsync<Item>(item);
             return item;
         }
 
         public async Task<Item> Remover(string itemId)
         {
             var registro = await Firebase.Child($"itens/{itemId}").OnceSingleAsync<Item>();
-            await Firebase.Child($"itens/{itemId}").DeleteAsync();
+            await Firebase.Child($"itens/{_autenticacaoService.UserName}/{itemId}").DeleteAsync();
             return registro;
         }
 

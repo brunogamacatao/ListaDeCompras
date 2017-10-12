@@ -40,10 +40,19 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAutenticacaoService.cs" />
     <Compile Include="Services\IListaDeComprasService.cs" />
+    <Compile Include="ViewModels\AppMasterDetailPageViewModel.cs" />
+    <Compile Include="ViewModels\AppNavigationPageViewModel.cs" />
     <Compile Include="ViewModels\ListaDeComprasPageViewModel.cs" />
     <Compile Include="ViewModels\ListaDeComprasTabsViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
     <Compile Include="ViewModels\NovoItemPageViewModel.cs" />
+    <Compile Include="ViewModels\RegistroPageViewModel.cs" />
+    <Compile Include="Views\AppMasterDetailPage.xaml.cs">
+      <DependentUpon>AppMasterDetailPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\AppNavigationPage.xaml.cs">
+      <DependentUpon>AppNavigationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ListaDeComprasPage.xaml.cs">
       <DependentUpon>ListaDeComprasPage.xaml</DependentUpon>
     </Compile>
@@ -55,6 +64,9 @@
     </Compile>
     <Compile Include="Views\NovoItemPage.xaml.cs">
       <DependentUpon>NovoItemPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\RegistroPage.xaml.cs">
+      <DependentUpon>RegistroPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
@@ -139,6 +151,24 @@
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Views\NovoItemPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\RegistroPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AppMasterDetailPage.xaml">
+      <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AppNavigationPage.xaml">
       <Generator>MSBuild:UpdateDesignTimeXaml</Generator>
       <SubType>Designer</SubType>
     </EmbeddedResource>

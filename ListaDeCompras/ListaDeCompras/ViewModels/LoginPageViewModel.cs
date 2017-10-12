@@ -72,7 +72,7 @@ namespace ListaDeCompras.ViewModels
 
             if (await _autenticacao.Autentica(UserName, Password))
             {
-                await _navigationService.NavigateAsync(new Uri("/ListaDeComprasTabs", UriKind.Absolute));
+                await _navigationService.NavigateAsync(new Uri("/AppMasterDetailPage/AppNavigationPage/ListaDeComprasTabs", UriKind.Absolute));
             }
             else
             {
@@ -80,6 +80,15 @@ namespace ListaDeCompras.ViewModels
             }
 
             IsLoading = false;
+        }
+
+        private DelegateCommand registerCommand;
+        public DelegateCommand OnRegisterCommand =>
+            registerCommand ?? (registerCommand = new DelegateCommand(OnRegister));
+
+        private async void OnRegister()
+        {
+            await _navigationService.NavigateAsync(new Uri("/NavigationPage/RegistroPage"));
         }
     }
 }

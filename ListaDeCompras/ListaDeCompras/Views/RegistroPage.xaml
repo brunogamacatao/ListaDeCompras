@@ -4,12 +4,13 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
-             x:Class="ListaDeCompras.Views.LoginPage"
+             x:Class="ListaDeCompras.Views.RegistroPage"
              BackgroundColor="White">
     <ContentPage.Content>
         <StackLayout VerticalOptions="CenterAndExpand" 
                      HorizontalOptions="FillAndExpand">
-            <Image Source="shoppingcart.png" HorizontalOptions="Center"/>
+            <Label Text="Realize Seu Registro" FontSize="Large" TextColor="Orange" HorizontalOptions="Center"/>
+
             <Entry Text="{Binding UserName}" 
                  Placeholder="Email"
                  Keyboard="Email"
@@ -21,20 +22,13 @@
                 <Entry.Behaviors>
                     <b:EventToCommandBehavior 
                         EventName="Completed" 
-                        Command="{Binding OnLoginCommand}" />
+                        Command="{Binding OnRegistrarCommand}" />
                 </Entry.Behaviors>
             </Entry>
 
             <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
 
-            <Button Command="{Binding OnLoginCommand}" 
-                  Text="Entre"  TextColor="White"
-                  BackgroundColor="Orange" 
-                  HorizontalOptions="FillAndExpand"/>
-
-            <Label Text="ou" HorizontalOptions="Center"/>
-
             <Button Command="{Binding OnRegisterCommand}" Text="Registre-se" HorizontalOptions="FillAndExpand"/>
         </StackLayout>
-    </ContentPage.Content>  
+    </ContentPage.Content>
 </ContentPage>

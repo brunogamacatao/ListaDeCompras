@@ -18,11 +18,13 @@ namespace ListaDeCompras
 
         protected override void RegisterTypes()
         {
-            Container.RegisterTypeForNavigation<NavigationPage>();
             Container.RegisterTypeForNavigation<LoginPage>();
             Container.RegisterTypeForNavigation<ListaDeComprasPage>();
             Container.RegisterTypeForNavigation<ListaDeComprasTabs>();
             Container.RegisterTypeForNavigation<NovoItemPage>();
+            Container.RegisterTypeForNavigation<RegistroPage>();
+            Container.RegisterTypeForNavigation<AppMasterDetailPage>();
+            Container.RegisterTypeForNavigation<AppNavigationPage>();
         }
     }
 }

@@ -4,7 +4,10 @@
             xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
             prism:ViewModelLocator.AutowireViewModel="True"
             xmlns:local="clr-namespace:ListaDeCompras.Views"
-            x:Class="ListaDeCompras.Views.ListaDeComprasTabs">
+            x:Class="ListaDeCompras.Views.ListaDeComprasTabs"
+            BarBackgroundColor="Orange"
+            BarTextColor="White"
+            Title="Lista de Compras">
     <local:ListaDeComprasPage/>
     <local:NovoItemPage/>
 </TabbedPage>

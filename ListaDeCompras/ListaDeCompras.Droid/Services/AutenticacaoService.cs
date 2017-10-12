@@ -21,21 +21,45 @@ namespace ListaDeCompras.Droid.Services
 
         public async Task<bool> Autentica(string email, string senha)
         {
-            var authProvider = new FirebaseAuthProvider(new FirebaseConfig(API_KEY));
+            var authProvider = NewAuthProvider();
 
             try
             {
                 var auth = await authProvider.SignInWithEmailAndPasswordAsync(email, senha);
 
                 Token = auth.FirebaseToken;
+                UserName = auth.User.LocalId;
 
                 return true;
-            } catch (Exception)
+            }
+            catch (Exception)
+            {
+                return false;
+            }
+        }
+
+        public async Task<bool> Registrar(string email, string senha)
+        {
+            var authProvider = NewAuthProvider();
+
+            try
+            {
+                await authProvider.CreateUserWithEmailAndPasswordAsync(email, senha);
+
+                return true;
+            }
+            catch (Exception)
             {
                 return false;
             }
         }
 
         public string Token { get; private set; }
+        public string UserName { get; private set; }
+
+        private static FirebaseAuthProvider NewAuthProvider()
+        {
+            return new FirebaseAuthProvider(new FirebaseConfig(API_KEY));
+        }
     }
 }
