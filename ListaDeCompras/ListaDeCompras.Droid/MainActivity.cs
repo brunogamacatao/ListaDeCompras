@@ -31,10 +31,12 @@ namespace ListaDeCompras.Droid
     public class AndroidInitializer : IPlatformInitializer
     {
         static AutenticacaoService autenticacaoService = new AutenticacaoService();
+        static ListaDeComprasService listaDeComprasService = new ListaDeComprasService(autenticacaoService);
 
         public void RegisterTypes(IUnityContainer container)
         {
             container.RegisterInstance<IAutenticacaoService>(autenticacaoService, new ExternallyControlledLifetimeManager());
+            container.RegisterInstance<IListaDeComprasService>(listaDeComprasService, new ExternallyControlledLifetimeManager());
         }
     }
 }

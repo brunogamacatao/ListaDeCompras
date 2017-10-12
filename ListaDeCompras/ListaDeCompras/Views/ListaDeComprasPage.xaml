@@ -6,6 +6,21 @@
              x:Class="ListaDeCompras.Views.ListaDeComprasPage"
              Title="Compras">
     <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
-        <Label Text="Lista de Compras"/>
+        <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+        <ListView ItemsSource="{Binding Itens}">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <ViewCell.View>
+                            <StackLayout Orientation="Horizontal">
+                                <Button Text="X"/>
+                                <Label Text="{Binding Nome}"/>
+                                <Label Text="{Binding Quantidade}"/>
+                            </StackLayout>
+                        </ViewCell.View>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
     </StackLayout>
 </ContentPage>

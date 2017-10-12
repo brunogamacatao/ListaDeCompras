@@ -35,8 +35,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Model\Item.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\IAutenticacaoService.cs" />
+    <Compile Include="Services\IListaDeComprasService.cs" />
     <Compile Include="ViewModels\ListaDeComprasPageViewModel.cs" />
     <Compile Include="ViewModels\ListaDeComprasTabsViewModel.cs" />
     <Compile Include="ViewModels\LoginPageViewModel.cs" />
