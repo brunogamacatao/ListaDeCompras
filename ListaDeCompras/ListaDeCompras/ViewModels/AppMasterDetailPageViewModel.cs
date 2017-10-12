@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using ListaDeCompras.Util;
+using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -22,6 +23,11 @@ namespace ListaDeCompras.ViewModels
 
         private async void OnLogout()
         {
+            if (await LocalStorage.ArquivoExisteAsync(LoginPageViewModel.ARQUIVO_DADOS_ACESSO))
+            {
+                await LocalStorage.RemoverArquivoAsync(LoginPageViewModel.ARQUIVO_DADOS_ACESSO);
+            }
+
             await _navigationService.NavigateAsync(new Uri("/LoginPage", UriKind.Absolute));
         }
     }

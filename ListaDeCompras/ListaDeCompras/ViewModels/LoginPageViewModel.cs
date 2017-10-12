@@ -1,4 +1,5 @@
 ﻿using ListaDeCompras.Services;
+using ListaDeCompras.Util;
 using Prism.Commands;
 using Prism.Mvvm;
 using Prism.Navigation;
@@ -10,8 +11,10 @@ using System.Windows.Input;
 
 namespace ListaDeCompras.ViewModels
 {
-    public class LoginPageViewModel : BindableBase
+    public class LoginPageViewModel : BindableBase, INavigationAware
     {
+        public const string ARQUIVO_DADOS_ACESSO = "dadosdeacesso";
+
         private INavigationService _navigationService;
         private IPageDialogService _pageDialogService;
         private IAutenticacaoService _autenticacao;
@@ -72,6 +75,7 @@ namespace ListaDeCompras.ViewModels
 
             if (await _autenticacao.Autentica(UserName, Password))
             {
+                GuardaDadosLocais();
                 await _navigationService.NavigateAsync(new Uri("/AppMasterDetailPage/AppNavigationPage/ListaDeComprasTabs", UriKind.Absolute));
             }
             else
@@ -89,6 +93,34 @@ namespace ListaDeCompras.ViewModels
         private async void OnRegister()
         {
             await _navigationService.NavigateAsync(new Uri("/NavigationPage/RegistroPage"));
+        }
+
+        private async void GuardaDadosLocais()
+        {
+            string dadosDeAcesso = UserName + "\n" + Password;
+            await LocalStorage.EscreverTextoAsync(ARQUIVO_DADOS_ACESSO, dadosDeAcesso);
+        }
+
+        public void OnNavigatedFrom(NavigationParameters parameters)
+        {
+        }
+
+        public void OnNavigatedTo(NavigationParameters parameters)
+        {
+        }
+
+        public async void OnNavigatingTo(NavigationParameters parameters)
+        {
+            if (await LocalStorage.ArquivoExisteAsync(ARQUIVO_DADOS_ACESSO))
+            {
+                string dadosDeAcesso = await LocalStorage.LerTextoAsync(ARQUIVO_DADOS_ACESSO);
+                var tokens = dadosDeAcesso.Split('\n');
+
+                UserName = tokens[0];
+                Password = tokens[1];
+
+                DoLogin();
+            }
         }
     }
 }
