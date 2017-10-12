@@ -4,8 +4,30 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ListaDeCompras.Views.NovoItemPage"
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
              Title="Novo Item">
-    <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
-        <Label Text="Novo Item"/>
-    </StackLayout>
+    <ContentPage.Content>
+        <StackLayout VerticalOptions="CenterAndExpand" 
+                     HorizontalOptions="FillAndExpand">
+            <Entry Text="{Binding Nome}" 
+                 Placeholder="Nome"
+                 HorizontalOptions="FillAndExpand"/>
+            <Entry Text="{Binding Quantidade}"
+                 Placeholder="Quantidade" 
+                 Keyboard="Numeric"
+                 HorizontalOptions="FillAndExpand">
+                <Entry.Behaviors>
+                    <b:EventToCommandBehavior 
+                        EventName="Completed" 
+                        Command="{Binding OnSalvarCommand}" />
+                </Entry.Behaviors>
+            </Entry>
+
+            <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
+
+            <Button Command="{Binding OnSalvarCommand}" 
+                  Text="Salvar"
+                  HorizontalOptions="FillAndExpand"/>
+        </StackLayout>
+    </ContentPage.Content>
 </ContentPage>

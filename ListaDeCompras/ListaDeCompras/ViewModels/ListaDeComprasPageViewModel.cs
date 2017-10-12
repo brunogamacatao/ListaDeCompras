@@ -1,6 +1,8 @@
-﻿using ListaDeCompras.Model;
+﻿using ListaDeCompras.Events;
+using ListaDeCompras.Model;
 using ListaDeCompras.Services;
 using Prism.Commands;
+using Prism.Events;
 using Prism.Mvvm;
 using Prism.Navigation;
 using System;
@@ -12,14 +14,25 @@ namespace ListaDeCompras.ViewModels
 {
     public class ListaDeComprasPageViewModel : BindableBase
     {
+        private IEventAggregator _eventAggregator;
         private IListaDeComprasService _listaDeComprasService;
         private List<Item> _itens;
         private bool _isLoading = false;
 
-        public ListaDeComprasPageViewModel(IListaDeComprasService listaDeComprasService)
+        public ListaDeComprasPageViewModel( IEventAggregator eventAggregator, 
+                                            IListaDeComprasService listaDeComprasService)
         {
+            _eventAggregator = eventAggregator;
             _listaDeComprasService = listaDeComprasService;
-            Inicializa();
+            CarregaItens();
+
+            // Sempre que a lista de compras mudar, chama o método ListaDeComprasMudou
+            _eventAggregator.GetEvent<ListaDeComprasMudouEvent>().Subscribe(ListaDeComprasMudou);
+        }
+
+        public void ListaDeComprasMudou(bool mudou)
+        {
+            CarregaItens();
         }
 
         public List<Item> Itens
@@ -34,13 +47,45 @@ namespace ListaDeCompras.ViewModels
             set { SetProperty(ref _isLoading, value); }
         }
 
-        void Inicializa()
+        void CarregaItens()
         {
             Task.Run(async () => {
                 IsLoading = true;
                 Itens = await _listaDeComprasService.Listar();
                 IsLoading = false;
             });            
+        }
+
+        public async void OnRemover(string ItemId)
+        {
+            IsLoading = true;
+            await _listaDeComprasService.Remover(ItemId);
+            IsLoading = false;
+            CarregaItens();
+        }
+
+        public async void OnMudouEstadoComprado(string ItemId)
+        {
+            IsLoading = true;
+
+            Item itemSelecionado = null;
+
+            foreach (var item in Itens)
+            {
+                if (item.ItemId.Equals(ItemId))
+                {
+                    itemSelecionado = item;
+                    break;
+                }
+            }
+
+            if (itemSelecionado != null)
+            {
+                System.Diagnostics.Debug.WriteLine($"Mudando o estado do item {ItemId} para {itemSelecionado.Comprado}");
+                await _listaDeComprasService.Alterar(itemSelecionado);
+            }
+
+            IsLoading = false;
         }
     }
 }

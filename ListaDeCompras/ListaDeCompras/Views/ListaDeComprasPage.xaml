@@ -4,7 +4,9 @@
              xmlns:prism="clr-namespace:Prism.Mvvm;assembly=Prism.Forms"
              prism:ViewModelLocator.AutowireViewModel="True"
              x:Class="ListaDeCompras.Views.ListaDeComprasPage"
-             Title="Compras">
+             xmlns:b="clr-namespace:Prism.Behaviors;assembly=Prism.Forms"
+             Title="Compras"
+             x:Name="Principal">
     <StackLayout VerticalOptions="Center" HorizontalOptions="CenterAndExpand">
         <ActivityIndicator IsRunning="{Binding IsLoading}" IsVisible="{Binding IsLoading}"/>
         <ListView ItemsSource="{Binding Itens}">
@@ -13,9 +15,17 @@
                     <ViewCell>
                         <ViewCell.View>
                             <StackLayout Orientation="Horizontal">
-                                <Button Text="X"/>
-                                <Label Text="{Binding Nome}"/>
-                                <Label Text="{Binding Quantidade}"/>
+                                <Switch IsToggled="{Binding Comprado}">
+                                    <Switch.Behaviors>
+                                        <b:EventToCommandBehavior 
+                                            EventName="Toggled" 
+                                            Command="{Binding OnMudouEstadoCompradoCommand, Source={x:Reference Principal}}"
+                                            CommandParameter="{Binding ItemId}"/>
+                                    </Switch.Behaviors>
+                                </Switch>
+                                <Label Text="{Binding Nome}" HorizontalOptions="FillAndExpand" VerticalOptions="Center"/>
+                                <Label Text="{Binding Quantidade}" VerticalOptions="Center"/>
+                                <Button Text="X" Command="{Binding OnRemoverCommand, Source={x:Reference Principal}}" CommandParameter="{Binding ItemId}"/>
                             </StackLayout>
                         </ViewCell.View>
                     </ViewCell>
